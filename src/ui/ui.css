@@ -1,0 +1,63 @@
+:root {
+  --default-bg-dm: #333;
+  --default-bg-lm: #fff;
+  --default-font-dm: #a38d6d;
+  --default-font-lm: #333;
+}
+
+body {
+  padding: 5px;
+  margin: 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h3 {
+  padding: 0;
+  margin: 0 0 5px 0;
+}
+
+span {
+  display: block;
+  padding: 0;
+  margin: 0 0 20px 0;
+  text-decoration: none;
+  font-size: 10px;
+}
+
+#main-content {
+  padding: 5px;
+  text-align: center;
+}
+
+#searchWikiInput {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--default-bg-dm);
+    color: var(--default-font-dm);
+  }
+
+  #searchWikiInput {
+    border-color: var(--default-font-dm);
+    color: var(--default-font-dm);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--default-bg-lm);
+    color: var(--default-font-lm);
+  }
+
+  #searchWikiInput {
+    border-color: var(--default-font-lm);
+    color: var(--default-font-lm);
+  }
+}
