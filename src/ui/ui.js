@@ -34,7 +34,7 @@ const handler = () => {
             if (valid) {
                 // If not empty - ask your browser to open a new tab/window (based on your browser setting)
                 // which takes you to the wiki search / page.
-                window.open(`${defaultWikiURL}${query}`, "_blank").focus()
+                browser.tabs.create({url: `${defaultWikiURL}${query}`})
                 // Close the popup.
                 window.close()
             }
