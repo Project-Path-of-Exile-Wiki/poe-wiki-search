@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "PoE Wiki Search",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Stupid-simple wiki search for PoE!",
     "icons": {
         "96": "icons/icon_96.png",
@@ -10,8 +10,7 @@
     "permissions": [
         "webRequest",
         "webRequestBlocking",
-        "https://pathofexile.fandom.com/",
-        "tabs"
+        "https://pathofexile.fandom.com/"
     ],
     "background": {
         "scripts": ["background.js"]
