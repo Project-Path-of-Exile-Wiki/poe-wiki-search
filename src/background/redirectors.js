@@ -1,6 +1,16 @@
-// Any requests beginning with these patterns get intercepted.
-const fandomPattern = "https://pathofexile.fandom.com/*"
-const googlePattern = "https://*.google.com/search?*q=poe+*" 
+// We could use URLSearchParams instead of this, but it doesn't work well for unit testing.
+// Manually parsing the query string works just fine and we can test.
+// https://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
+function getQueryVariable(url, variable) {
+    var query = url.split("?")[1]
+    var vars = query.split("&")
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=")
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1])
+        }
+    }
+}
 
 // This function will check where we are going,
 // and redirect us to the new wiki, but retain our target page.
@@ -13,35 +23,24 @@ function redirectFromFandom(requestDetails) {
     // We simply replace the destination target over the new wiki URL.
     // Then send it back to the browser to finish the request with.
     return {
-        redirectUrl: `https://poewiki.net/wiki/${target}`
+        redirectUrl: `https://poewiki.net/wiki/${target}`,
     }
 }
 
 // When we are making a Google search beginning with "poe ",
 // this function will prepend "site:poewiki.net" to the search.
 function redirectFromGoogle(requestDetails) {
-    // Parse the query string parameters into an object
-    const queryString = new URLSearchParams(requestDetails.url)
     // Grab the search query itself and remove the "poe " at the beginning
-    const searchQuery = queryString.get("q").replace(/^poe /, "")
-    
+    const searchQuery = getQueryVariable(requestDetails.url, "q").replace(/^poe\+/, "")
+
     // Return the redirect url with "site:poewiki.net" prepended to the search query
     return {
-        redirectUrl: `https://google.com/search?q=site:poewiki.net+${searchQuery}`
+        redirectUrl: `https://www.google.com/search?q=site:poewiki.net+${searchQuery}`,
     }
 }
 
-// Instruction for the browser to redirect based on pattern.
-// `chrome` used instead of `browser` for compat since Firefox supports
-// both chrome and browser, but chrome(ium) only supports chrome prefix afaik.
-chrome.webRequest.onBeforeRequest.addListener(
+module.exports = {
+    getQueryVariable,
     redirectFromFandom,
-    {urls:[fandomPattern]},
-    ["blocking"]
-)
-
-chrome.webRequest.onBeforeRequest.addListener(
     redirectFromGoogle,
-    {urls:[googlePattern]},
-    ["blocking"]
-)
+}

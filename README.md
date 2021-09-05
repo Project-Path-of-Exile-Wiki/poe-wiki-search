@@ -29,15 +29,18 @@ It runs as a process and reloads the extension live as you make changes to your 
 - `cd` into the cloned repo.
 - `pnpm install`
 - Setup your vscode to format via ESLint on save. In `.vscode/settings.json` - `"editor.codeActionsOnSave": { "source.fixAll.eslint": true }`
-- Finally cd into the `src/` dir and run - `web-ext run`
+- In two terminals run: `pnpm webpack:watch` and `pnpm run start`
 
 Now every time you make changes to the code, you'll see them live on Firefox. Unless you do something browser-specific in the code, your
 extension should just work almost everywhere!
 
 ## Build
 
-To build your extension for publishing, simply run `./build.sh`. Make sure you gave it execute perms if it does not work the first time!
-The output will be dropped into your build folder! Although the build process is really just zipping up the files.. It's nothing special.
+To build your extension for publishing, simply run `pnpm run build`,then zip the contents of the `build/` folder.
+
+## Testing
+
+We use Jest for testing. Run `pnpm run test` or `pnpm run test:watch`.
 
 # FAQ
 
@@ -45,7 +48,7 @@ The output will be dropped into your build folder! Although the build process is
 
 Yes, it is. We do not enforce its use, we provide it as a means to simplify your life when searching for PoE related information and as a means to globally redirect your requests to the official wiki, instead of the ad-ridden Fandom site. The code that does this sits in two places:
 
-- `src/background.js`
+- `src/background/background.js`
 - `src/ui/ui.js`
 
 Each file has a laymanised comment stack to walk even non-technical users through what it does and why. Don't be shy and read through!

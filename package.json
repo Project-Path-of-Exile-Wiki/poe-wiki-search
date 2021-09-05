@@ -2,11 +2,23 @@
   "name": "poe-wiki-search",
   "version": "1.0.3",
   "description": "Super simple search for poewiki.net!",
-  "main": "background.js",
-  "scripts": {},
+  "main": "background/background.js",
+  "scripts": {
+    "start": "web-ext run -s build",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "webpack": "webpack --mode=development",
+    "webpack:watch": "webpack --mode=development --watch",
+    "build": "webpack --mode=production"
+  },
   "author": "github.com/pm5k",
   "license": "GPL3",
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "jest": "^27.1.0",
+    "web-ext": "^6.3.0",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0"
   }
 }
