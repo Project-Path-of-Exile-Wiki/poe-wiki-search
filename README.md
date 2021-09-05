@@ -36,7 +36,7 @@ extension should just work almost everywhere!
 
 ## Build
 
-To build your extension for publishing, simply run `pnpm run build`,then zip the contents of the `build/` folder.
+To build your extension for publishing, simply run `pnpm run build`. The packaged zip file will be output to `build/`.
 
 ## Testing
 
