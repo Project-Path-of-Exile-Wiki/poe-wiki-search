@@ -10,7 +10,9 @@
     "permissions": [
         "webRequest",
         "webRequestBlocking",
-        "https://pathofexile.fandom.com/"
+        "https://pathofexile.fandom.com/",
+        "https://google.com/",
+        "https://www.google.com/"
     ],
     "background": {
         "scripts": ["background.js"]
