@@ -6,11 +6,13 @@
     "scripts": {
         "start": "web-ext run -s ./src",
         "test": "jest",
-        "test:watch": "jest --watchAll"
+        "test:watch": "jest --watchAll",
+        "build": "web-ext build -s ./src/ -a build --ignore-files **/*.spec.js"
     },
     "author": "github.com/pm5k",
-    "license": "GPL3",
+    "license": "GPL-3.0-only",
     "devDependencies": {
+        "eslint": "^7.32.0",
         "jest": "^27.1.0",
         "jest-esm-transformer": "^1.0.0",
         "web-ext": "^6.3.0"

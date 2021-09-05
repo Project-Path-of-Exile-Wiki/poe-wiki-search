@@ -1,28 +1,4 @@
-import { getQueryVariable, redirectFromFandom, redirectFromGoogle } from "./redirects.js"
-
-describe("getQueryVariable", () => {
-    it.each([
-        { url: "https://www.test.com/coding?hello=world", variable: "hello", expected: "world" },
-        {
-            url: "https://www.test.com/coding?hello=world&and=another",
-            variable: "and",
-            expected: "another",
-        },
-        {
-            url: "https://www.test.com/coding?hello=world&numbers=123&and=another",
-            variable: "numbers",
-            expected: "123",
-        },
-        {
-            url: "https://test.com/coding?hello=world&numbers=123&and=another",
-            variable: "numbers",
-            expected: "123",
-        },
-    ])("Properly parses '$variable' from $url", ({ url, variable, expected }) => {
-        const actual = getQueryVariable(url, variable)
-        expect(actual).toBe(expected)
-    })
-})
+import { redirectFromFandom, redirectFromGoogle } from "./redirects.js"
 
 describe("Fandom redirect", () => {
     it.each([
