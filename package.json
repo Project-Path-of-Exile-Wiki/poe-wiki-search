@@ -12,6 +12,7 @@
     "license": "GPL3",
     "devDependencies": {
         "jest": "^27.1.0",
+        "jest-esm-transformer": "^1.0.0",
         "web-ext": "^6.3.0"
     }
 }

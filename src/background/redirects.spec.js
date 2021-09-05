@@ -1,4 +1,4 @@
-const { getQueryVariable, redirectFromFandom, redirectFromGoogle } = require("./redirects.js")
+import { getQueryVariable, redirectFromFandom, redirectFromGoogle } from "./redirects.js"
 
 describe("getQueryVariable", () => {
     it.each([
