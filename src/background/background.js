@@ -1,7 +1,7 @@
 import { redirectFromFandom, redirectFromGoogle } from "./redirects.js"
 
 // Any requests beginning with these patterns get intercepted.
-const fandomPattern = "https://pathofexile.fandom.com/*"
+const fandomPattern = "https://pathofexile.fandom.com/wiki/*"
 const googlePattern = "https://*.google.com/search?*q=poe+*"
 
 // Instruction for the browser to redirect based on pattern.

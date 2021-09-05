@@ -23,7 +23,7 @@ function redirectFromFandom(requestDetails) {
     // We simply replace the destination target over the new wiki URL.
     // Then send it back to the browser to finish the request with.
     return {
-        redirectUrl: `https://poewiki.net/wiki/${target}`,
+        redirectUrl: `https://www.poewiki.net/wiki/${target}`,
     }
 }
 

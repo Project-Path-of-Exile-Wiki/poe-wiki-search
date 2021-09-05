@@ -28,15 +28,15 @@ describe("Fandom redirect", () => {
     it.each([
         {
             url: "https://pathofexile.fandom.com/wiki/Faster_Attacks_Support",
-            expected: "https://poewiki.net/wiki/Faster_Attacks_Support",
+            expected: "https://www.poewiki.net/wiki/Faster_Attacks_Support",
         },
         {
             url: "https://pathofexile.fandom.com/wiki/Ascendancy_class",
-            expected: "https://poewiki.net/wiki/Ascendancy_class",
+            expected: "https://www.poewiki.net/wiki/Ascendancy_class",
         },
         {
-            url: "https://pathofexile.fandom.com",
-            expected: "https://www.poewiki.net/wiki/",
+            url: "https://pathofexile.fandom.com/wiki/Path_of_Exile_Wiki",
+            expected: "https://www.poewiki.net/wiki/Path_of_Exile_Wiki",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromFandom({ url })
