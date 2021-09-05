@@ -34,6 +34,10 @@ describe("Fandom redirect", () => {
             url: "https://pathofexile.fandom.com/wiki/Ascendancy_class",
             expected: "https://poewiki.net/wiki/Ascendancy_class",
         },
+        {
+            url: "https://pathofexile.fandom.com",
+            expected: "https://www.poewiki.net/wiki/",
+        },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromFandom({ url })
         expect(actual.redirectUrl).toBe(expected)
