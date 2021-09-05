@@ -21,6 +21,8 @@ module.exports = {
                         ignore: ["**/background", "**/*.spec.js"],
                     },
                 },
+                { from: "./LICENSE" },
+                { from: "./privacy-policy.txt" },
             ],
         }),
     ],
