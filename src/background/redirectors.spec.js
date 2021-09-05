@@ -13,6 +13,11 @@ describe("getQueryVariable", () => {
             variable: "numbers",
             expected: "123",
         },
+        {
+            url: "https://test.com/coding?hello=world&numbers=123&and=another",
+            variable: "numbers",
+            expected: "123",
+        },
     ])("Properly parses '$variable' from $url", ({ url, variable, expected }) => {
         const actual = getQueryVariable(url, variable)
         expect(actual).toBe(expected)
@@ -47,6 +52,10 @@ describe("Google Search redirect", () => {
         },
         {
             url: "https://www.google.com/search?q=poe+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://google.com/search?q=poe+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
