@@ -1,4 +1,4 @@
-const { redirectFromFandom, redirectFromGoogle } = require("./redirectors")
+import { redirectFromFandom, redirectFromGoogle } from "./redirects.js"
 
 // Any requests beginning with these patterns get intercepted.
 const fandomPattern = "https://pathofexile.fandom.com/*"

@@ -39,7 +39,7 @@ function redirectFromGoogle(requestDetails) {
     }
 }
 
-module.exports = {
+export {
     getQueryVariable,
     redirectFromFandom,
     redirectFromGoogle,

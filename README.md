@@ -29,7 +29,7 @@ It runs as a process and reloads the extension live as you make changes to your 
 - `cd` into the cloned repo.
 - `pnpm install`
 - Setup your vscode to format via ESLint on save. In `.vscode/settings.json` - `"editor.codeActionsOnSave": { "source.fixAll.eslint": true }`
-- In two terminals run: `pnpm run webpack:watch` and `pnpm run start`
+- In two terminals run: `pnpm run test:watch` and `pnpm run start`
 
 Now every time you make changes to the code, you'll see them live on Firefox. Unless you do something browser-specific in the code, your
 extension should just work almost everywhere!
