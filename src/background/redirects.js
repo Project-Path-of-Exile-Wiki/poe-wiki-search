@@ -35,7 +35,7 @@ function redirectFromDdg(requestDetails) {
         .get("q")
         .replace(/ /g, "+")
         .replace(/^poe\+/, "")
-        
+
     return {
         redirectUrl: `https://www.duckduckgo.com/?q=site:poewiki.net+${searchQuery}`,
     }
