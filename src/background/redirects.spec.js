@@ -1,4 +1,4 @@
-import { redirectFromFandom, redirectFromGoogle } from "./redirects.js"
+import { redirectFromFandom, redirectFromGoogle, redirectFromDdg } from "./redirects.js"
 
 describe("Fandom redirect", () => {
     it.each([
@@ -40,6 +40,30 @@ describe("Google Search redirect", () => {
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromGoogle({ url })
+        expect(actual.redirectUrl).toBe(expected)
+    })
+})
+
+describe("DuckDuckGo Search redirect", () => {
+    it.each([
+        {
+            url: "https://duckduckgo.com/?q=poe+faster+attacks",
+            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://duckduckgo.com/?client=firefox-b-1-d&q=poe+faster+attacks",
+            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://duckduckgo.com/?q=poe+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
+            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://duckduckgo.com/?q=poe+faster+attacks",
+            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
+        },
+    ])("Given $url, redirect to $expected", ({ url, expected }) => {
+        const actual = redirectFromDdg({ url })
         expect(actual.redirectUrl).toBe(expected)
     })
 })

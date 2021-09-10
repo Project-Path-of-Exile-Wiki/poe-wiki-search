@@ -29,4 +29,16 @@ function redirectFromGoogle(requestDetails) {
     }
 }
 
-export { redirectFromFandom, redirectFromGoogle }
+function redirectFromDdg(requestDetails) {
+    const url = new URL(requestDetails.url)
+    const searchQuery = url.searchParams
+        .get("q")
+        .replace(/ /g, "+")
+        .replace(/^poe\+/, "")
+
+    return {
+        redirectUrl: `https://www.duckduckgo.com/?q=site:poewiki.net+${searchQuery}`,
+    }
+}
+
+export { redirectFromFandom, redirectFromGoogle, redirectFromDdg }
