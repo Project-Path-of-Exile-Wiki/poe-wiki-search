@@ -21,7 +21,7 @@ function redirectFromGoogle(requestDetails) {
     const searchQuery = url.searchParams
         .get("q")
         .replace(/ /g, "+")
-        .replace(/^poe\+/, "")
+        .replace(/^poewiki\+/, "")
 
     // Return the redirect url with "site:poewiki.net" prepended to the search query
     return {
