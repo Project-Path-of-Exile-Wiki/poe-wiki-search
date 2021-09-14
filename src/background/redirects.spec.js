@@ -52,6 +52,22 @@ describe("Google Search redirect", () => {
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
         {
+            url: "https://www.google.com/search?q=faster+poe+attacks+wiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=faster+attacks+poe+wiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=faster+attacks+poewiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=faster+poewiki+attacks",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
             url: "https://www.google.com/search?q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki",
             expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia",
         },
