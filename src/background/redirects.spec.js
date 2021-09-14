@@ -26,6 +26,7 @@ describe("Google Search redirect", () => {
             url: "https://www.google.com/search?q=poewiki+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
+        // Noisy query parameters cases
         {
             url: "https://www.google.com/search?client=firefox-b-1-d&q=poewiki+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
@@ -38,7 +39,7 @@ describe("Google Search redirect", () => {
             url: "https://google.com/search?q=poewiki+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
-        // Wildcard poe*wiki cases
+        // Wildcard *poe*wiki* cases
         {
             url: "https://www.google.com/search?q=poe+wiki+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
@@ -67,9 +68,10 @@ describe("Google Search redirect", () => {
             url: "https://www.google.com/search?q=faster+poewiki+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
+        // Making sure words that happen to contain "poe", "wiki" or "poewiki" do not get filtered
         {
-            url: "https://www.google.com/search?q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia",
+            url: "https://www.google.com/search?q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki+apoewiki+poewikia+apoewikia+poeawiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromGoogle({ url })
