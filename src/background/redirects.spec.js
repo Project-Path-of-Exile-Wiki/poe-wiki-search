@@ -38,6 +38,23 @@ describe("Google Search redirect", () => {
             url: "https://google.com/search?q=poewiki+faster+attacks",
             expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
         },
+        // Wildcard poe*wiki cases
+        {
+            url: "https://www.google.com/search?q=poe+wiki+faster+attacks",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=poe++wiki+faster+attacks",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=poe+faster+attacks+wiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
+        },
+        {
+            url: "https://www.google.com/search?q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki",
+            expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia",
+        },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromGoogle({ url })
         expect(actual.redirectUrl).toBe(expected)
