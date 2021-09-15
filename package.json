@@ -1,6 +1,6 @@
 {
     "name": "poe-wiki-search",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Super simple search for poewiki.net!",
     "main": "background/background.js",
     "scripts": {
