@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "PoE Wiki Search",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Stupid-simple wiki search for PoE!",
     "icons": {
         "96": "icons/icon_96.png",
