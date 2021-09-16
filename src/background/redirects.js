@@ -13,14 +13,15 @@ function redirectFromFandom(requestDetails) {
     }
 }
 
-// When we are making a Google search beginning with "poe ",
-// this function will prepend "site:poewiki.net" to the search.
+// When we are making a Google search containing the words "poe", "wiki" or "poewiki",
+// this function will prepend "site:poewiki.net" to the search, filtering out "poe", "wiki" and "poewiki".
 function redirectFromGoogle(requestDetails) {
     // Grab the search query itself and remove the "poe " at the beginning
     const url = new URL(requestDetails.url)
     const searchQuery = url.searchParams
         .get("q")
         .split(" ")
+        // Filter "empty" words (caused from consecutive spaces in the query), and the poewiki words we use to match redirects for.
         .filter(qParam => qParam !== "" && !["poe", "wiki", "poewiki"].includes(qParam))
         .join("+")
 

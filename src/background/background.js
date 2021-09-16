@@ -3,10 +3,13 @@ import { redirectFromFandom, redirectFromGoogle } from "./redirects.js"
 // Any requests beginning with these patterns get intercepted.
 const fandomPattern = "https://pathofexile.fandom.com/wiki/*"
 // These Google patterns are written this way to prevent recursively matching on the redirect destination.
-// Redirects will be to `/search?q=site:poewiki.net` which a naive pattern of `q=*poe*wiki*` will match and continuously redirect for.
-const googlePattern1 = "https://*.google.com/search?*q=*poe+*wiki*"
-const googlePattern2 = "https://*.google.com/search?*q=*poewiki+*"
-const googlePattern3 = "https://*.google.com/search?*q=*+poewiki*"
+// Redirects will be generated to `/search?q=site:poewiki.net`, 
+// which a naive pattern of `q=*poe*wiki*` will again match (recursively) and continue trying to redirect for (bad).
+const googlePatterns = [
+    "https://*.google.com/search?*q=*poe+*wiki*",
+    "https://*.google.com/search?*q=*poewiki+*",
+    "https://*.google.com/search?*q=*+poewiki*"
+]
 
 // Instruction for the browser to redirect based on pattern.
 // `chrome` used instead of `browser` for compat since Firefox supports
@@ -22,7 +25,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 chrome.webRequest.onBeforeRequest.addListener(
     redirectFromGoogle,
     {
-        urls: [googlePattern1, googlePattern2, googlePattern3],
+        urls: googlePatterns,
     },
     ["blocking"],
 )
