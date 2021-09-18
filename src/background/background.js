@@ -17,7 +17,22 @@ const searchEnginePatterns = [
     "https://duckduckgo.com/?*q=*+poewiki*",
     "https://*.duckduckgo.com/?*q=*poe+*wiki*",
     "https://*.duckduckgo.com/?*q=*poewiki+*",
-    "https://*.duckduckgo.com/?*q=*+poewiki*"
+    "https://*.duckduckgo.com/?*q=*+poewiki*",
+
+    //Bing - Currently bing doesn't find any results with "site:poewiki.net", GJ BING!
+    "https://*.bing.com/search?*q=*poe+*wiki*",
+    "https://*.bing.com/search?*q=*poewiki+*",
+    "https://*.bing.com/search?*q=*+poewiki*",
+
+    //Yahoo
+    //FIXME: Yahoo does not work with 'url.searchParams' and would need special implementation to filter the search url
+    "https://*.yahoo.com/search?*p=*poe+*wiki*",
+    "https://*.yahoo.com/search?*p=*poewiki+*",
+    "https://*.yahoo.com/search?*p=*+poewiki*"
+
+    //FIXME:
+        //Baidu is using bloated search queries, needs investigation
+        //Yandex.ru has captchas :(
 ]
 
 // Instruction for the browser to redirect based on pattern.

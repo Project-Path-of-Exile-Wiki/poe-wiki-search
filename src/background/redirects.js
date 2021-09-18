@@ -35,6 +35,14 @@ function searchQueryFromRequest(requestDetails) {
         case "www.duckduckgo.com":
             searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
             break;
+        case "bing.com":
+        case "www.bing.com":
+            searchEngine = "https://www.bing.com/search?q=site:poewiki.net+"
+            break;
+        case "search.yahoo.com":
+        case "www.yahoo.com":
+        case "yahoo.com":
+            searchEngine = "https://www.yahoo.com/search?q=site:poewiki.net+"
     }
     const redirectResult = searchEngine + searchQuery
 

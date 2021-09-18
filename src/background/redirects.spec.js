@@ -31,15 +31,30 @@ describe("Test queries against all Search Engines redirect", () => {
         "https://duckduckgo.com/?",
         "https://www.duckduckgo.com/?"
     ]
+    
+    const bingUrls = [
+        "https://www.bing.com/search?",
+        "https://bing.com/search?"
+    ]
+
+    const yahooUrls = [
+        "https://www.yahoo.com/search?",
+        "https://yahoo.com/search?",
+        "https://search.yahoo.com/search?"
+    ]
 
     //The base redirect result URL to expect from each search engine
     const redirectHost = new Map()
     redirectHost.set("google", "https://www.google.com/search?q=site:poewiki.net+")
     redirectHost.set("duckduckgo", "https://www.duckduckgo.com/?q=site:poewiki.net+")
+    redirectHost.set("bing", "https://www.bing.com/search?q=site:poewiki.net+") 
+    redirectHost.set("yahoo", "https://www.yahoo.com/search?q=site:poewiki.net+")
 
     //Run the tests for a given search engine
     runTestQueries(googleUrls, "google")
     runTestQueries(duckduckgoUrls, "duckduckgo")
+    runTestQueries(bingUrls, "bing")
+    runTestQueries(yahooUrls, "yahoo")
 
     function runTestQueries(urlCollection, searchEngine) {
         urlCollection.forEach(urlHost =>
