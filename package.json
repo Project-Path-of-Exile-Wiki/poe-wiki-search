@@ -1,6 +1,6 @@
 {
     "name": "poe-wiki-search",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "description": "Super simple search for poewiki.net!",
     "main": "background/background.js",
     "scripts": {
@@ -11,7 +11,8 @@
     },
     "author": "github.com/pm5k",
     "contributors": [
-        "github.com/cooperaustinj"
+        "github.com/cooperaustinj",
+        "github.com/tonytangio"
     ],
     "license": "GPL-3.0-only",
     "devDependencies": {
