@@ -11,7 +11,11 @@ const googlePatterns = [
     "https://*.google.com/search?*q=*+poewiki*"
 ]
 
-const duckduckgoPattern = "https://duckduckgo.com/?*q=poe+*"
+const duckduckgoPatterns = [
+    "https://duckduckgo.com/?*q=*poe+*wiki*",
+    "https://duckduckgo.com/?*q=*poewiki+*",
+    "https://duckduckgo.com/?*q=*+poewiki*"
+]
 
 // Instruction for the browser to redirect based on pattern.
 // `chrome` used instead of `browser` for compat since Firefox supports
@@ -35,7 +39,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 chrome.webRequest.onBeforeRequest.addListener(
     redirectFromDdg,
     {
-        urls: [duckduckgoPattern],
+        urls: duckduckgoPatterns,
     },
     ["blocking"],
 )
