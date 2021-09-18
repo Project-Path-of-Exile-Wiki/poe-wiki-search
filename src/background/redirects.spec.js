@@ -1,4 +1,4 @@
-import { redirectFromFandom, redirectFromGoogle, redirectFromDdg } from "./redirects.js"
+import { redirectFromFandom, searchQueryFromRequest } from "./redirects.js"
 
 describe("Fandom redirect", () => {
     it.each([
@@ -74,7 +74,7 @@ describe("Google Search redirect", () => {
             expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
-        const actual = redirectFromGoogle({ url })
+        const actual = searchQueryFromRequest({ url })
         expect(actual.redirectUrl).toBe(expected)
     })
 })
@@ -98,7 +98,7 @@ describe("DuckDuckGo Search redirect", () => {
             expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
-        const actual = redirectFromDdg({ url })
+        const actual = searchQueryFromRequest({ url })
         expect(actual.redirectUrl).toBe(expected)
     })
 })
