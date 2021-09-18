@@ -1,4 +1,4 @@
-import { redirectFromFandom, redirectFromGoogle, redirectFromDdg } from "./redirects.js"
+import { redirectFromFandom, searchQueryFromRequest } from "./redirects.js"
 
 describe("Fandom redirect", () => {
     it.each([
@@ -20,85 +20,85 @@ describe("Fandom redirect", () => {
     })
 })
 
-describe("Google Search redirect", () => {
-    it.each([
-        {
-            url: "https://www.google.com/search?q=poewiki+faster+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        // Noisy query parameters cases
-        {
-            url: "https://www.google.com/search?client=firefox-b-1-d&q=poewiki+faster+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=poewiki+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://google.com/search?q=poewiki+faster+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        // Wildcard *poe*wiki* cases
-        {
-            url: "https://www.google.com/search?q=poe+wiki+faster+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=poe++wiki+faster+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=poe+faster+attacks+wiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=faster+poe+attacks+wiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=faster+attacks+poe+wiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=faster+attacks+poewiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://www.google.com/search?q=faster+poewiki+attacks",
-            expected: "https://www.google.com/search?q=site:poewiki.net+faster+attacks",
-        },
-        // Making sure words that happen to contain "poe", "wiki" or "poewiki" do not get filtered
-        {
-            url: "https://www.google.com/search?q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki+apoewiki+poewikia+apoewikia+poeawiki",
-            expected: "https://www.google.com/search?q=site:poewiki.net+apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
-        },
-    ])("Given $url, redirect to $expected", ({ url, expected }) => {
-        const actual = redirectFromGoogle({ url })
-        expect(actual.redirectUrl).toBe(expected)
-    })
-})
+describe("Test queries against all Search Engines redirect", () => {
+    //Setup different Search Engine urls to test against
+    const googleUrls = [
+        "https://www.google.com/search?",
+        "https://google.com/search?",
+    ]
 
-describe("DuckDuckGo Search redirect", () => {
-    it.each([
-        {
-            url: "https://duckduckgo.com/?q=poe+faster+attacks",
-            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://duckduckgo.com/?client=firefox-b-1-d&q=poe+faster+attacks",
-            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://duckduckgo.com/?q=poe+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
-            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
-        },
-        {
-            url: "https://duckduckgo.com/?q=poe+faster+attacks",
-            expected: "https://www.duckduckgo.com/?q=site:poewiki.net+faster+attacks",
-        },
-    ])("Given $url, redirect to $expected", ({ url, expected }) => {
-        const actual = redirectFromDdg({ url })
-        expect(actual.redirectUrl).toBe(expected)
-    })
+    const duckduckgoUrls = [
+        "https://duckduckgo.com/?",
+        "https://www.duckduckgo.com/?"
+    ]
+
+    //The base redirect result URL to expect from each search engine
+    const redirectHost = new Map()
+    redirectHost.set("google", "https://www.google.com/search?q=site:poewiki.net+")
+    redirectHost.set("duckduckgo", "https://www.duckduckgo.com/?q=site:poewiki.net+")
+
+    //Run the tests for a given search engine
+    runTestQueries(googleUrls, "google")
+    runTestQueries(duckduckgoUrls, "duckduckgo")
+
+    function runTestQueries(urlCollection, searchEngine) {
+        urlCollection.forEach(urlHost =>
+            it.each([
+                {
+                    url: urlHost + "q=poe+faster+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks"
+                },
+                // Noisy query parameters cases
+                {
+                    url: urlHost + "client=firefox-b-1-d&q=poewiki+faster+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=poewiki+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=poewiki+faster+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                // Wildcard *poe*wiki* cases
+                {
+                    url: urlHost + "q=poe+wiki+faster+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=poe++wiki+faster+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=poe+faster+attacks+wiki",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=faster+poe+attacks+wiki",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=faster+attacks+poe+wiki",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=faster+attacks+poewiki",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                {
+                    url: urlHost + "q=faster+poewiki+attacks",
+                    expected: redirectHost.get(searchEngine) + "faster+attacks",
+                },
+                // Making sure words that happen to contain "poe", "wiki" or "poewiki" do not get filtered
+                {
+                    url: urlHost + "q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki+apoewiki+poewikia+apoewikia+poeawiki",
+                    expected: redirectHost.get(searchEngine) + "apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
+                },
+            ])(searchEngine + " - Given $url, redirect to $expected", ({ url, expected }) => {
+                const actual = searchQueryFromRequest({ url })
+                expect(actual.redirectUrl).toBe(expected)
+            })
+        )
+    }
 })

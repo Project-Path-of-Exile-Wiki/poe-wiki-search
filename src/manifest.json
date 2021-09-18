@@ -13,7 +13,8 @@
         "https://pathofexile.fandom.com/",
         "https://google.com/",
         "https://www.google.com/",
-        "https://duckduckgo.com/"
+        "https://duckduckgo.com/",
+        "https://www.duckduckgo.com/"
     ],
     "background": {
         "page": "background/background.html"

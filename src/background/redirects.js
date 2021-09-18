@@ -13,10 +13,9 @@ function redirectFromFandom(requestDetails) {
     }
 }
 
-// When we are making a Google search containing the words "poe", "wiki" or "poewiki",
+// When we are making a search query containing the words "poe", "wiki" or "poewiki",
 // this function will prepend "site:poewiki.net" to the search, filtering out "poe", "wiki" and "poewiki".
-function redirectFromGoogle(requestDetails) {
-    // Grab the search query itself and remove the "poe " at the beginning
+function searchQueryFromRequest(requestDetails) {
     const url = new URL(requestDetails.url)
     const searchQuery = url.searchParams
         .get("q")
@@ -25,22 +24,25 @@ function redirectFromGoogle(requestDetails) {
         .filter(qParam => qParam !== "" && !["poe", "wiki", "poewiki"].includes(qParam))
         .join("+")
 
+    let searchEngine = null;
+
+    switch (url.host) {
+        case "google.com":
+        case "www.google.com":
+            searchEngine = 'https://www.google.com/search?q=site:poewiki.net+'
+            break;
+        case "duckduckgo.com":
+        case "www.duckduckgo.com":
+            searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
+            break;
+    }
+    const redirectResult = searchEngine + searchQuery
+
     // Return the redirect url with "site:poewiki.net" prepended to the search query
     return {
-        redirectUrl: `https://www.google.com/search?q=site:poewiki.net+${searchQuery}`,
+        redirectUrl: redirectResult
     }
+
 }
 
-function redirectFromDdg(requestDetails) {
-    const url = new URL(requestDetails.url)
-    const searchQuery = url.searchParams
-        .get("q")
-        .replace(/ /g, "+")
-        .replace(/^poe\+/, "")
-
-    return {
-        redirectUrl: `https://www.duckduckgo.com/?q=site:poewiki.net+${searchQuery}`,
-    }
-}
-
-export { redirectFromFandom, redirectFromGoogle, redirectFromDdg }
+export { redirectFromFandom, searchQueryFromRequest }
