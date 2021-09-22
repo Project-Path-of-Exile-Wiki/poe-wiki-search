@@ -44,7 +44,7 @@ describe("Test queries against all Search Engines redirect", () => {
 
     function runTestQueries(urlCollection, searchEngine) {
         const redirectBaseUrl = redirectBaseUrls[searchEngine]
-        
+
         urlCollection.forEach(baseUrl =>
             it.each([
                 {
