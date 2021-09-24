@@ -22,21 +22,82 @@ const duckduckgoPatterns = [
     "https://*.duckduckgo.com/?*q=*+poewiki*"
 ]
 
-// Instruction for the browser to redirect based on pattern.
-// `chrome` used instead of `browser` for compat since Firefox supports
-// both chrome and browser, but chrome(ium) only supports chrome prefix afaik.
-chrome.webRequest.onBeforeRequest.addListener(
-    redirectFromFandom,
-    {
-        urls: [fandomPattern],
-    },
-    ["blocking"],
-)
 
-chrome.webRequest.onBeforeRequest.addListener(
-    redirectFromSearchEngine,
-    {
-        urls: [...googlePatterns, ...duckduckgoPatterns],
-    },
-    ["blocking"],
-)
+// Load settings from storage
+chrome.storage.sync.get("redirectFromFandom", function (data) {
+    let redirectSetting = data.redirectFromFandom
+    validateSetting(redirectSetting)
+})
+
+
+function validateSetting(data) {
+    // No settings exists yet, let's create it!
+    if (data == undefined || data == null) {
+        chrome.storage.sync.set({ "redirectFromFandom": true })
+    }
+
+    // Enable redirect listeners
+    if (data == true) {
+        // Instruction for the browser to redirect based on pattern.
+        // `chrome` used instead of `browser` for compat since Firefox supports
+        // both chrome and browser, but chrome(ium) only supports chrome prefix afaik.
+        chrome.webRequest.onBeforeRequest.addListener(
+            redirectFromFandom,
+            {
+                urls: [fandomPattern],
+            },
+            ["blocking"],
+        )
+
+        chrome.webRequest.onBeforeRequest.addListener(
+            redirectFromSearchEngine,
+            {
+                urls: [...googlePatterns, ...duckduckgoPatterns],
+            },
+            ["blocking"],
+        )
+    }
+    // Disable redirect listeners
+    else {
+
+        chrome.webRequest.onBeforeRequest.removeListener(
+            redirectFromFandom,
+            {
+                urls: [fandomPattern],
+            },
+            ["blocking"],
+        )
+
+        chrome.webRequest.onBeforeRequest.removeListener(
+            redirectFromSearchEngine,
+            {
+                urls: [...googlePatterns, ...duckduckgoPatterns],
+            },
+            ["blocking"],
+        )
+    }
+}
+
+// Keep track of when Storage has changed
+chrome.storage.onChanged.addListener(storageChanges);
+
+function storageChanges(changes, area) {
+
+    let changedItems = Object.keys(changes);
+    // DEBUG - Helpful to check values before/after change
+    /*
+    console.log(changedItems)
+    for (let item of changedItems) {
+        console.log("[" + area + "] - " + item + " has changed:");
+        console.log("Old value: " + changes[item].oldValue);
+        console.log("New value: " + changes[item].newValue);
+    }
+    */
+
+    // FUNCTIONAL
+    for (let item of changedItems) {
+        if (item = "redirectFromFandom") {
+            validateSetting(changes[item].newValue)
+        }
+    }
+}
