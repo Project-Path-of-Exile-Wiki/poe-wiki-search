@@ -7,6 +7,8 @@ const defaultWikiURL = "https://www.poewiki.net/w/index.php?search="
 // This way we reduce your action-to-search count to just `hotkey+search+ENTER`.
 const getSearchInput = () => document.querySelector("#searchWikiInput")
 
+const getRedirectCheckbox = () => document.querySelector("#redirectFandom")
+
 // Function to focus on the search box.
 const focusSearch = (searchInput) => searchInput.focus()
 
@@ -39,6 +41,21 @@ const handler = () => {
                 window.close()
             }
             
+        }
+    })
+
+    const redirectFandom = getRedirectCheckbox()
+
+    // Load saved setting
+    chrome.storage.sync.get("redirectFromFandom", function(data) {
+        redirectFandom.checked = data.redirectFromFandom;
+    })
+
+    redirectFandom.addEventListener('change', function () {
+        if (this.checked) {
+            chrome.storage.sync.set({"redirectFromFandom": true})
+        } else {
+            chrome.storage.sync.set({"redirectFromFandom": false})
         }
     })
 }
