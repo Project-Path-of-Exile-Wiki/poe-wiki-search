@@ -10,6 +10,7 @@
     "permissions": [
         "webRequest",
         "webRequestBlocking",
+        "storage",
         "https://pathofexile.fandom.com/",
         "https://google.com/",
         "https://www.google.com/",
@@ -24,6 +25,11 @@
         "default_title": "PoE Wiki Search",
         "default_popup": "ui/ui.html"
     },
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "addon@example.com"
+        }
+      },
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
