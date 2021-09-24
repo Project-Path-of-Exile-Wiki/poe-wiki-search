@@ -15,7 +15,7 @@ function redirectFromFandom(requestDetails) {
 
 // When we are making a search query containing the words "poe", "wiki" or "poewiki",
 // this function will prepend "site:poewiki.net" to the search, filtering out "poe", "wiki" and "poewiki".
-function searchQueryFromRequest(requestDetails) {
+function redirectFromSearchEngine(requestDetails) {
     const url = new URL(requestDetails.url)
     const searchQuery = url.searchParams
         .get("q")
@@ -35,6 +35,7 @@ function searchQueryFromRequest(requestDetails) {
         case "www.duckduckgo.com":
             searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
             break;
+        default: searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
     }
     const redirectResult = searchEngine + searchQuery
 
@@ -45,4 +46,4 @@ function searchQueryFromRequest(requestDetails) {
 
 }
 
-export { redirectFromFandom, searchQueryFromRequest }
+export { redirectFromFandom, redirectFromSearchEngine }
