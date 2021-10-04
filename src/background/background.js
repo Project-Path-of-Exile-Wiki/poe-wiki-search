@@ -22,6 +22,14 @@ const duckduckgoPatterns = [
     "https://*.duckduckgo.com/?*q=*+poewiki*"
 ]
 
+chrome.webRequest.onBeforeRequest.addListener(
+    redirectFromSearchEngine,
+    {
+        urls: [...googlePatterns, ...duckduckgoPatterns],
+    },
+    ["blocking"],
+)
+
 
 // Load settings from storage
 chrome.storage.sync.get("redirectFromFandom", function (data) {
@@ -48,32 +56,15 @@ function validateSetting(data) {
             },
             ["blocking"],
         )
-
-        chrome.webRequest.onBeforeRequest.addListener(
-            redirectFromSearchEngine,
-            {
-                urls: [...googlePatterns, ...duckduckgoPatterns],
-            },
-            ["blocking"],
-        )
         // Update extension icon to show redirect ON
         browser.browserAction.setIcon({path: "/icons/favicon.png"});
     }
     // Disable redirect listeners
     else {
-
         chrome.webRequest.onBeforeRequest.removeListener(
             redirectFromFandom,
             {
                 urls: [fandomPattern],
-            },
-            ["blocking"],
-        )
-
-        chrome.webRequest.onBeforeRequest.removeListener(
-            redirectFromSearchEngine,
-            {
-                urls: [...googlePatterns, ...duckduckgoPatterns],
             },
             ["blocking"],
         )
