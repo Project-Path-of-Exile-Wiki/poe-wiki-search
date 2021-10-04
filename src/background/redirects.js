@@ -24,18 +24,13 @@ function redirectFromSearchEngine(requestDetails) {
         .filter(qParam => qParam !== "" && !["poe", "wiki", "poewiki"].includes(qParam))
         .join("+")
 
-    let searchEngine = null;
+    let searchEngine = 'https://www.google.com/search?q=site:poewiki.net+';
 
     switch (url.host) {
-        case "google.com":
-        case "www.google.com":
-            searchEngine = 'https://www.google.com/search?q=site:poewiki.net+'
-            break;
         case "duckduckgo.com":
         case "www.duckduckgo.com":
             searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
             break;
-        default: searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
     }
     const redirectResult = searchEngine + searchQuery
 
