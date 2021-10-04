@@ -56,6 +56,8 @@ function validateSetting(data) {
             },
             ["blocking"],
         )
+        // Update extension icon to show redirect ON
+        browser.browserAction.setIcon({path: "/icons/favicon.png"});
     }
     // Disable redirect listeners
     else {
@@ -75,6 +77,8 @@ function validateSetting(data) {
             },
             ["blocking"],
         )
+        // Update extension icon to show redirect OFF
+        browser.browserAction.setIcon({path: "/icons/favicon-off.png"});
     }
 }
 
