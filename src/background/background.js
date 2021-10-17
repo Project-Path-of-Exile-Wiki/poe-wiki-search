@@ -76,20 +76,9 @@ function validateSetting(data) {
 // Keep track of when Storage has changed
 chrome.storage.onChanged.addListener(storageChanges);
 
-function storageChanges(changes, area) {
+function storageChanges(changes) {
 
     let changedItems = Object.keys(changes);
-    // DEBUG - Helpful to check values before/after change
-    /*
-    console.log(changedItems)
-    for (let item of changedItems) {
-        console.log("[" + area + "] - " + item + " has changed:");
-        console.log("Old value: " + changes[item].oldValue);
-        console.log("New value: " + changes[item].newValue);
-    }
-    */
-
-    // FUNCTIONAL
     for (let item of changedItems) {
         if (item = "redirectFromFandom") {
             validateSetting(changes[item].newValue)
