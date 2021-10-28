@@ -64,6 +64,19 @@ describe("Test queries against all Search Engines redirect", () => {
                     url: baseUrl + "q=poewiki+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
+                // Sanitize some special characters
+                {
+                    url: baseUrl + "q=\"poewiki\"+faster+attacks",
+                    expected: redirectBaseUrl + "faster+attacks",
+                },
+                {
+                    url: baseUrl + "q=\"poe+wiki\"+faster+attacks",
+                    expected: redirectBaseUrl + "faster+attacks",
+                },
+                {
+                    url: baseUrl + "q=\"\poe+\'\.wiki\"+faster\'+attacks",
+                    expected: redirectBaseUrl + "faster+attacks",
+                },
                 // Wildcard *poe*wiki* cases
                 {
                     url: baseUrl + "q=poe+wiki+faster+attacks",
