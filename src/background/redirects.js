@@ -19,6 +19,7 @@ function redirectFromSearchEngine(requestDetails) {
     const url = new URL(requestDetails.url)
     const searchQuery = url.searchParams
         .get("q")
+        .replace(/([",\.']+)/g,"")
         .split(" ")
         // Filter "empty" words (caused from consecutive spaces in the query), and the poewiki words we use to match redirects for.
         .filter(qParam => qParam !== "" && !["poe", "wiki", "poewiki"].includes(qParam))
