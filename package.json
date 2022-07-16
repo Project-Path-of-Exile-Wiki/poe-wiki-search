@@ -1,7 +1,7 @@
 {
-    "name": "poe-wiki-search",
-    "version": "1.0.6",
-    "description": "Super simple search for poewiki.net!",
+    "name": "calamity-wiki-search",
+    "version": "1.0.0",
+    "description": "Super simple search for calamitymod.wiki.gg!",
     "main": "background/background.js",
     "scripts": {
         "start": "web-ext run -s ./src",

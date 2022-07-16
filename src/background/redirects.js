@@ -9,7 +9,7 @@ function redirectFromFandom(requestDetails) {
     // We simply replace the destination target over the new wiki URL.
     // Then send it back to the browser to finish the request with.
     return {
-        redirectUrl: `https://www.poewiki.net/wiki/${target}`,
+        redirectUrl: `https://calamitymod.wiki.gg/wiki/${target}`,
     }
 }
 
@@ -21,15 +21,15 @@ function redirectFromSearchEngine(requestDetails) {
         .get("q")
         .split(" ")
         // Filter "empty" words (caused from consecutive spaces in the query), and the poewiki words we use to match redirects for.
-        .filter(qParam => qParam !== "" && !["poe", "wiki", "poewiki"].includes(qParam))
+        .filter(qParam => qParam !== "" && !["calamity", "wiki", "calamitywiki"].includes(qParam))
         .join("+")
 
-    let searchEngine = 'https://www.google.com/search?q=site:poewiki.net+';
+    let searchEngine = 'https://www.google.com/search?q=site:calamitymod.wiki.gg+';
 
     switch (url.host) {
         case "duckduckgo.com":
         case "www.duckduckgo.com":
-            searchEngine = 'https://www.duckduckgo.com/?q=site:poewiki.net+'
+            searchEngine = 'https://www.duckduckgo.com/?q=site:calamitymod.wiki.gg+'
             break;
     }
     const redirectResult = searchEngine + searchQuery

@@ -3,16 +3,16 @@ import { redirectFromFandom, redirectFromSearchEngine } from "./redirects.js"
 describe("Fandom redirect", () => {
     it.each([
         {
-            url: "https://pathofexile.fandom.com/wiki/Faster_Attacks_Support",
-            expected: "https://www.poewiki.net/wiki/Faster_Attacks_Support",
+            url: "https://calamitymod.fandom.com/wiki/Faster_Attacks_Support",
+            expected: "https://calamitymod.wiki.gg/wiki/Faster_Attacks_Support",
         },
         {
-            url: "https://pathofexile.fandom.com/wiki/Ascendancy_class",
-            expected: "https://www.poewiki.net/wiki/Ascendancy_class",
+            url: "https://calamitymod.fandom.com/wiki/Ascendancy_class",
+            expected: "https://calamitymod.wiki.gg/wiki/Ascendancy_class",
         },
         {
-            url: "https://pathofexile.fandom.com/wiki/Path_of_Exile_Wiki",
-            expected: "https://www.poewiki.net/wiki/Path_of_Exile_Wiki",
+            url: "https://calamitymod.fandom.com/wiki/Path_of_Exile_Wiki",
+            expected: "https://calamitymod.wiki.gg/wiki/Path_of_Exile_Wiki",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromFandom({ url })
@@ -34,8 +34,8 @@ describe("Test queries against all Search Engines redirect", () => {
 
     // The base redirect result URL to expect from each search engine
     const redirectBaseUrls = {
-        google: "https://www.google.com/search?q=site:poewiki.net+",
-        duckduckgo: "https://www.duckduckgo.com/?q=site:poewiki.net+"
+        google: "https://www.google.com/search?q=site:calamitymod.wiki.gg+",
+        duckduckgo: "https://www.duckduckgo.com/?q=site:calamitymod.wiki.gg+"
     }
 
     // Run the tests for a given search engine
@@ -48,55 +48,55 @@ describe("Test queries against all Search Engines redirect", () => {
         urlCollection.forEach(baseUrl =>
             it.each([
                 {
-                    url: baseUrl + "q=poe+faster+attacks",
+                    url: baseUrl + "q=calamity+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks"
                 },
                 // Noisy query parameters cases
                 {
-                    url: baseUrl + "client=firefox-b-1-d&q=poewiki+faster+attacks",
+                    url: baseUrl + "client=firefox-b-1-d&q=calamitywiki+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=poewiki+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
+                    url: baseUrl + "q=calamitywiki+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=calamity+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=poewiki+faster+attacks",
+                    url: baseUrl + "q=calamitywiki+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
-                // Wildcard *poe*wiki* cases
+                // Wildcard *calamity*wiki* cases
                 {
-                    url: baseUrl + "q=poe+wiki+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
-                },
-                {
-                    url: baseUrl + "q=poe++wiki+faster+attacks",
+                    url: baseUrl + "q=calamity+wiki+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=poe+faster+attacks+wiki",
+                    url: baseUrl + "q=calamity++wiki+faster+attacks",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=faster+poe+attacks+wiki",
+                    url: baseUrl + "q=calamity+faster+attacks+wiki",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=faster+attacks+poe+wiki",
+                    url: baseUrl + "q=faster+calamity+attacks+wiki",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=faster+attacks+poewiki",
+                    url: baseUrl + "q=faster+attacks+calamity+wiki",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
                 {
-                    url: baseUrl + "q=faster+poewiki+attacks",
+                    url: baseUrl + "q=faster+attacks+calamitywiki",
                     expected: redirectBaseUrl + "faster+attacks",
                 },
-                // Making sure words that happen to contain "poe", "wiki" or "poewiki" do not get filtered
                 {
-                    url: baseUrl + "q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki+apoewiki+poewikia+apoewikia+poeawiki",
-                    expected: redirectBaseUrl + "apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
+                    url: baseUrl + "q=faster+calamitywiki+attacks",
+                    expected: redirectBaseUrl + "faster+attacks",
+                },
+                // Making sure words that happen to contain "calamity", "wiki" or "calamitywiki" do not get filtered
+                {
+                    url: baseUrl + "q=calamity+acalamity+calamitya+acalamitya+awiki+wikia+awikia+wiki+acalamitywiki+calamitywikia+acalamitywikia+calamityawiki",
+                    expected: redirectBaseUrl + "acalamity+calamitya+acalamitya+awiki+wikia+awikia+acalamitywiki+calamitywikia+acalamitywikia+calamityawiki",
                 },
             ])(searchEngine + " - Given $url, redirect to $expected", ({ url, expected }) => {
                 const actual = redirectFromSearchEngine({ url })
