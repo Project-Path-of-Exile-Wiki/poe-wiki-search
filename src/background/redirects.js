@@ -2,6 +2,12 @@
 // and redirect us to the new wiki, but retain our target page.
 // This is not 100% tested, any bug reports are welcome!
 function redirectFromFandom(requestDetails) {
+    if (requestDetails.url.trim() === "https://baldursgate.fandom.com/wiki/Baldur's_Gate_Wiki") {
+        return {
+            redirectUrl: "https://www.bg3.wiki/",
+        }
+    }
+
     // Get the URL of where we are going, split it at `/`
     const splitTarget = requestDetails.url.split("/")
     // We assume that the last part of our split URL is the destination target.
