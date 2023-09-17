@@ -10,7 +10,7 @@
     "permissions": [
         "webRequest",
         "webRequestBlocking",
-        "https://pathofexile.fandom.com/",
+        "https://baldursgate.fandom.com/",
         "https://google.com/",
         "https://www.google.com/",
         "https://duckduckgo.com/",
