@@ -1,6 +1,6 @@
 {
-    "name": "poe-wiki-search",
-    "version": "1.0.6",
+    "name": "bg3-wiki-search",
+    "version": "1.0.7",
     "description": "Super simple search for bg3.wiki!",
     "main": "background/background.js",
     "scripts": {
@@ -12,7 +12,8 @@
     "author": "github.com/pm5k",
     "contributors": [
         "github.com/cooperaustinj",
-        "github.com/tonytangio"
+        "github.com/tonytangio",
+        "github.com/cliesens27"
     ],
     "license": "GPL-3.0-only",
     "devDependencies": {
