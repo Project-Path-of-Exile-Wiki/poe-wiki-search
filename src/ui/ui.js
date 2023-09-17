@@ -1,7 +1,7 @@
 // This is the URL we will use to append all your searches to.
 // If your search query directly matches a name of a wiki page - you will get taken
 // to this page directly. If not - you will be taken to a search results page.
-const defaultWikiURL = "https://www.poewiki.net/w/index.php?search="
+const defaultWikiURL = "https://www.bg3.wiki/w/index.php?search="
 
 // This just selects the search input box in the extension popup when the popup opens.
 // This way we reduce your action-to-search count to just `hotkey+search+ENTER`.

@@ -5,7 +5,7 @@
 This is a browser extension designed to be used in Firefox, Google Chrome, and chromium-based browsers (such as MS Edge) by players of the popular ARPG - [Path of Exile](www.pathofexile.com).
 The purpose of this extension is to provide two benefits:
 
-- An easy to use hotkeyed trigger (`ALT+W`) to enable users to search for information about the game using the [official community wiki](www.poewiki.net).
+- An easy to use hotkeyed trigger (`ALT+A`) to enable users to search for information about the game using the [official community wiki](www.bg3.wiki).
 
 - As part of an ongoing outcry over the old wiki `baldursgate.fandom.com` employing user-hostile and predatory approaches via tracking, fingerprinting and advertising, this extension intercepts any request your browser sends to Fandom's domain for `path of exile` (all other fandom wiki's are not affected, neither are any other web page requests) and parses out the target of your journey (A.K.A what section of the fandom wiki you were going to) and directs you to the official community wiki instead, leaving you to land on the same exact page you were after, just in a friendlier, community-backed wiki.
 
