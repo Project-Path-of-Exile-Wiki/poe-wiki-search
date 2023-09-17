@@ -18,7 +18,7 @@
     ],
     "background": {
         "page": "background/background.html"
-      },
+    },
     "browser_action": {
         "default_icon": "icons/favicon.png",
         "default_title": "PoE Wiki Search",
@@ -27,7 +27,7 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-                "default": "Alt+W"
+                "default": "Alt+A"
             }
         }
     }
