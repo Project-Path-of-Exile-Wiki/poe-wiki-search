@@ -24,13 +24,13 @@ function redirectFromSearchEngine(requestDetails) {
         .filter(qParam => qParam !== "" && !["bg3", "wiki", "bg3wiki", "bg3.wiki"].includes(qParam))
         .join("+")
 
-    let searchEngine = 'https://www.google.com/search?q=site:bg3.wiki+';
+    let searchEngine = "https://www.google.com/search?q=site:bg3.wiki+"
 
     switch (url.host) {
         case "duckduckgo.com":
         case "www.duckduckgo.com":
-            searchEngine = 'https://www.duckduckgo.com/?q=site:bg3.wiki+'
-            break;
+            searchEngine = "https://www.duckduckgo.com/?q=site:bg3.wiki+"
+            break
     }
     const redirectResult = searchEngine + searchQuery
 
