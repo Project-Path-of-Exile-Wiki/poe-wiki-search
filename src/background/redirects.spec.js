@@ -3,16 +3,16 @@ import { redirectFromFandom, redirectFromSearchEngine } from "./redirects.js"
 describe("Fandom redirect", () => {
     it.each([
         {
-            url: "https://pathofexile.fandom.com/wiki/Faster_Attacks_Support",
-            expected: "https://www.poewiki.net/wiki/Faster_Attacks_Support",
+            url: "https://baldursgate.fandom.com/wiki/Acid_Splash",
+            expected: "https://www.bg3.wiki/wiki/Acid_Splash",
         },
         {
-            url: "https://pathofexile.fandom.com/wiki/Ascendancy_class",
-            expected: "https://www.poewiki.net/wiki/Ascendancy_class",
+            url: "https://baldursgate.fandom.com/wiki/Classes",
+            expected: "https://www.bg3.wiki/wiki/Classes",
         },
         {
-            url: "https://pathofexile.fandom.com/wiki/Path_of_Exile_Wiki",
-            expected: "https://www.poewiki.net/wiki/Path_of_Exile_Wiki",
+            url: "https://baldursgate.fandom.com/wiki/Baldur's_Gate_Wiki",
+            expected: "https://www.bg3.wiki/",
         },
     ])("Given $url, redirect to $expected", ({ url, expected }) => {
         const actual = redirectFromFandom({ url })
@@ -34,8 +34,8 @@ describe("Test queries against all Search Engines redirect", () => {
 
     // The base redirect result URL to expect from each search engine
     const redirectBaseUrls = {
-        google: "https://www.google.com/search?q=site:poewiki.net+",
-        duckduckgo: "https://www.duckduckgo.com/?q=site:poewiki.net+"
+        google: "https://www.google.com/search?q=site:bg3.wiki+",
+        duckduckgo: "https://www.duckduckgo.com/?q=site:bg3.wiki+"
     }
 
     // Run the tests for a given search engine
@@ -48,55 +48,63 @@ describe("Test queries against all Search Engines redirect", () => {
         urlCollection.forEach(baseUrl =>
             it.each([
                 {
-                    url: baseUrl + "q=poe+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks"
+                    url: baseUrl + "q=bg3+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash"
                 },
                 // Noisy query parameters cases
                 {
-                    url: baseUrl + "client=firefox-b-1-d&q=poewiki+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "client=firefox-b-1-d&q=bg3wiki+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=poewiki+faster+attacks&rlz=1CDSA2EA_enUS653US116&oq=poe+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=bg3wiki+acid+splash&rlz=1CDSA2EA_enUS653US116&oq=bg3+test+wiki&aqs=chrome..6213i57j64.1j7&sourceid=chrome&ie=UTF-8",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=poewiki+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=bg3wiki+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
-                // Wildcard *poe*wiki* cases
+                // Wildcard *bg3*wiki* cases
                 {
-                    url: baseUrl + "q=poe+wiki+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
-                },
-                {
-                    url: baseUrl + "q=poe++wiki+faster+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=bg3+wiki+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=poe+faster+attacks+wiki",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=bg3++wiki+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=faster+poe+attacks+wiki",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=bg3+acid+splash+wiki",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=faster+attacks+poe+wiki",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=acid+bg3+splash+wiki",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=faster+attacks+poewiki",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=acid+splash+bg3+wiki",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
                 {
-                    url: baseUrl + "q=faster+poewiki+attacks",
-                    expected: redirectBaseUrl + "faster+attacks",
+                    url: baseUrl + "q=acid+splash+bg3wiki",
+                    expected: redirectBaseUrl + "acid+splash",
                 },
-                // Making sure words that happen to contain "poe", "wiki" or "poewiki" do not get filtered
                 {
-                    url: baseUrl + "q=poe+apoe+poea+apoea+awiki+wikia+awikia+wiki+apoewiki+poewikia+apoewikia+poeawiki",
-                    expected: redirectBaseUrl + "apoe+poea+apoea+awiki+wikia+awikia+apoewiki+poewikia+apoewikia+poeawiki",
+                    url: baseUrl + "q=acid+bg3wiki+splash",
+                    expected: redirectBaseUrl + "acid+splash",
+                },
+                {
+                    url: baseUrl + "q=acid+bg3.wiki+splash",
+                    expected: redirectBaseUrl + "acid+splash",
+                },
+                {
+                    url: baseUrl + "q=bg3.wiki+acid+splash",
+                    expected: redirectBaseUrl + "acid+splash",
+                },
+                // Making sure words that happen to contain "bg3", "wiki" or "bg3wiki" do not get filtered
+                {
+                    url: baseUrl + "q=bg3+abg3+bg3a+abg3a+awiki+wikia+awikia+wiki+abg3wiki+bg3wikia+abg3wikia+bg3awiki",
+                    expected: redirectBaseUrl + "abg3+bg3a+abg3a+awiki+wikia+awikia+abg3wiki+bg3wikia+abg3wikia+bg3awiki",
                 },
             ])(searchEngine + " - Given $url, redirect to $expected", ({ url, expected }) => {
                 const actual = redirectFromSearchEngine({ url })
