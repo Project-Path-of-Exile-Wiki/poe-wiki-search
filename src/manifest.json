@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "PoE Wiki Search",
-    "version": "1.0.6",
-    "description": "Stupid-simple wiki search for PoE!",
+    "name": "BG3 Wiki Search",
+    "version": "1.0.7",
+    "description": "Stupid-simple wiki search for Baldur's Gate 3!",
     "icons": {
         "96": "icons/icon_96.png",
         "152": "icons/icon_152.png"
@@ -21,7 +21,7 @@
     },
     "browser_action": {
         "default_icon": "icons/favicon.png",
-        "default_title": "PoE Wiki Search",
+        "default_title": "BG3 Wiki Search",
         "default_popup": "ui/ui.html"
     },
     "commands": {
