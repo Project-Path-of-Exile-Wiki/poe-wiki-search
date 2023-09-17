@@ -25,7 +25,7 @@ const handler = () => {
 
     // While typing in the search input, we listen for a keyUP event for the key ENTER.
     // If this is registered - we assume you pressed ENTER and proceed.
-    searchInput.addEventListener("keyup", function(event) {
+    searchInput.addEventListener("keyup", function (event) {
         if (event.keyCode === 13) {
             // Get the value of your search input
             const query = searchInput.value
@@ -34,11 +34,11 @@ const handler = () => {
             if (valid) {
                 // If not empty - ask your browser to open a new tab/window (based on your browser setting)
                 // which takes you to the wiki search / page.
-                chrome.tabs.create({url: `${defaultWikiURL}${query}`})
+                chrome.tabs.create({ url: `${defaultWikiURL}${query}` })
                 // Close the popup.
                 window.close()
             }
-            
+
         }
     })
 }
