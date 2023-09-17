@@ -1,7 +1,7 @@
 :root {
-  --default-bg-dm: #333;
+  --default-bg-dm: #121124;
   --default-bg-lm: #fff;
-  --default-font-dm: #a38d6d;
+  --default-font-dm: #b4b4b4;
   --default-font-lm: #333;
 }
 
@@ -13,7 +13,7 @@ body {
 
 h3 {
   padding: 0;
-  margin: 0 0 5px 0;
+  margin: 20px 0 5px 0;
 }
 
 span {
